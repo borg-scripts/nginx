@@ -1,5 +1,5 @@
 module.exports = ->
   # install latest stable binaries from official ppa
-  @then @execute, 'add-apt-repository ppa:nginx/stable'
-  @then @execute, 'add-get update'
+  @then @execute, 'add-apt-repository ppa:nginx/stable', sudo: true
+  @then @execute, 'apt-get update', sudo: true
   @then @install, 'nginx'
