@@ -12,9 +12,9 @@ module.exports = ->
             mode: '0755'
             =>
               @link "/etc/nginx/sites-available/#{name}.conf",
-                to: "/etc/nginx/sites-enabled/#{name}.conf"
+                target: "/etc/nginx/sites-enabled/#{name}.conf"
                 sudo: true
-                cb()
+                cb
         when 'disable'
           @execute "rm /etc/nginx/sites-available/#{name}.conf", sudo: true, cb
         else
