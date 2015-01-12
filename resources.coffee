@@ -1,21 +1,19 @@
 _ = require 'lodash'
 module.exports = ->
   _.assign @,
-    nginx_site: (name, [o]..., cb) =>
+    nginx_site: (name, [o]...) => @inject_flow =>
       switch o?.action
         when 'enable'
-          @template o.template,
+          @then @template o.template,
             to: "/etc/nginx/sites-available/#{name}.conf"
             sudo: true
             owner: 'root'
             group: 'root'
             mode: '0755'
-            =>
-              @link "/etc/nginx/sites-available/#{name}.conf",
-                target: "/etc/nginx/sites-enabled/#{name}.conf"
-                sudo: true
-                cb
+          @then @link "/etc/nginx/sites-available/#{name}.conf",
+            target: "/etc/nginx/sites-enabled/#{name}.conf"
+            sudo: true
         when 'disable'
-          @execute "rm /etc/nginx/sites-available/#{name}.conf", sudo: true, cb
+          @then @execute "rm /etc/nginx/sites-available/#{name}.conf", sudo: true
         else
           @die "invalid action passed to @nginx_site(): #{name}"
