@@ -18,4 +18,4 @@ module.exports = ->
         when 'disable'
           @execute "rm /etc/nginx/sites-available/#{name}.conf", sudo: true, cb
         else
-          @die "invalid action passed to @nginx_site(): #{name}"
+          @die("invalid action passed to @nginx_site(): #{name}")() # immediate death
