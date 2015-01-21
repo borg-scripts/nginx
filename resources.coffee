@@ -1,4 +1,3 @@
-_ = require 'lodash'
 module.exports = ->
   _.assign @,
     nginx_site: (name, [o]...) => @inject_flow =>
